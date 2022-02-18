@@ -43,9 +43,9 @@ public class WordGridServiceImpl implements WordGridService {
               contents[i][j] = '-';
             }
         }
-        Collections.shuffle(coordinates);
-        for (String word : words) {
 
+        for (String word : words) {
+            Collections.shuffle(coordinates);
             for (Coordinate coordinate : coordinates) {
 
                 int x = coordinate.x;
@@ -91,7 +91,7 @@ public class WordGridServiceImpl implements WordGridService {
 
             }
         }
-        randomFillGrid(contents);
+       randomFillGrid(contents);
         return contents;
     }
 
@@ -118,40 +118,46 @@ public class WordGridServiceImpl implements WordGridService {
             case HORIZONTAL:
                 if (wordLength + coordinate.y > gridLength) return false;
                 for (int i = 0; i < wordLength; i++) {
-                    if (contents[coordinate.x][coordinate.y + i] != '-') return false;
+                    char letter = contents[coordinate.x][coordinate.y + i];
+                    if (letter != '-' && letter != word.charAt(i)) return false;
                 }
                 break;
 
             case VERTICAL:
                 if (wordLength + coordinate.x > gridLength) return false;
                 for (int i = 0; i < wordLength; i++) {
-                    if (contents[coordinate.x + i][coordinate.y] != '-') return false;
+                    char letter = contents[coordinate.x + i][coordinate.y];
+                    if (letter != '-' && letter != word.charAt(i)) return false;
                 }
                 break;
 
             case DIAGONAL:
                 if (wordLength + coordinate.y > gridLength || wordLength + coordinate.x > gridLength) return false;
                 for (int i = 0; i < wordLength; i++) {
-                    if (contents[coordinate.x + i][coordinate.y + i] != '-') return false;
+                    char letter = contents[coordinate.x + i][coordinate.y + i];
+                    if ( letter != '-' && letter != word.charAt(i)) return false;
                 }
                 break;
             case HORIZONTAL_INVERSE:
                 if (coordinate.y < wordLength) return false;
                 for (int i = 0; i < wordLength; i++) {
-                    if (contents[coordinate.x][coordinate.y - i] != '-') return false;
+                    char letter = contents[coordinate.x][coordinate.y - i];
+                    if ( letter != '-' && letter != word.charAt(i)) return false;
                 }
                 break;
             case VERTICAL_INVERSE:
                 if (coordinate.x < wordLength) return false;
                 for (int i = 0; i < wordLength; i++) {
-                    if (contents[coordinate.x - i][coordinate.y] != '-') return false;
+                    char letter = contents[coordinate.x - i][coordinate.y];
+                    if ( letter != '-' && letter != word.charAt(i)) return false;
                 }
                 break;
 
             case DIAGONAL_INVERSE:
                 if (coordinate.y < wordLength || coordinate.x < wordLength) return false;
                 for (int i = 0; i < wordLength; i++) {
-                    if (contents[coordinate.x - i][coordinate.y - i] != '-') return false;
+                    char letter = contents[coordinate.x - i][coordinate.y - i];
+                    if (letter != '-' && letter != word.charAt(i)) return false;
                 }
                 break;
 
